@@ -128,7 +128,7 @@ slug = "server"
 # NOTE: If this variable is not defined, set to None, or the dictionary is empty,
 # the sphinx_reredirects extension will be disabled.
 redirects = {
-    "lxc-containers": "https://linuxcontainers.org/lxc/documentation/"
+    "how-to/containers/lxc-containers": "https://linuxcontainers.org/lxc/documentation/"
 }
 
 ############################################################
@@ -200,6 +200,7 @@ custom_excludes = [
     'doc-cheat-sheet*',
     'readme.rst',
     'legacy/*.md',
+    '.github/pull_request_template.md',
 ]
 
 # Allow Sphinx to use both rst and md
