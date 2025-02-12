@@ -3,17 +3,17 @@
 
 ![Active Directory](../images/ad_integration.png)
 
-Active Directory deployments can range from single-domain, one tree, with one or more servers, up to multiple domains and servers geographically dispersed spawning a structure that is referred to as a "forest". Furthermore, such a forest is not necessarily static, allowing its multiple delegated administrators to add and remove domains from it. Depending on the desired level of integration and the complexity of the domain or forest, joining an Ubuntu system to Active Directory requires different tooling, configuration, and planning.
+Because the desired level of integration and the complexity of the Active Directory deployment is going to differ, joining an Ubuntu system to an Active Directory-based system will require planning, specific tools, and an appropriate configuration. The requirements change because Active Directory deployments range from single-domain and one tree, with one or more servers, up to a "forest," which is a dynamic structure with multiple domains and geographically dispersed servers.  
 
-Joining an Ubuntu system to an Active Directory domain (or a forest) means that the Ubuntu system will get an account in that domain, and be able to identify and authenticate users from that domain. In other words, a joined Ubuntu system should be able to:
-- authenticate Active Directory users, including changing their passwords
-- recognize the Active Directory users as valid users on the Ubuntu system, with linux-compatible user and group identifiers (more on that later)
+Once an Ubuntu system is joined to an Active Directory domain (or a forest), the Ubuntu system should be assigned an account in that domain and be able to identify and authenticate users from that domain. In other words, a joined Ubuntu system should be able to:
+- authenticate Active Directory users and allow them to change their passwords
+- recognize Active Directory users as valid users on the Ubuntu system, with Linux-compatible user and group identifiers
 - recognize group memberships
 
-Depending on how the join was performed, and the software stack available on the Ubuntu system, the following is also possible:
-- authenticate and recognize users from different domains that make up the forest
-- apply certain group policy objects (not covered here)
-- provide file and print services to users from the domain
+Depending on how the join was performed and which software stacks are available on the Ubuntu system, the following is also possible:
+- authenticating and recognizing users from different domains that make up the forest
+- applying certain group policy objects (not covered here)
+- providing file and print services to users from the domain
 
 To set up your Active Directory integrations, we suggest first familiarising yourself with the following key topics:
 
