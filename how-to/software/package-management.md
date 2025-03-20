@@ -1,15 +1,29 @@
 (package-management)=
-# Install and manage packages
+# Installing and managing packages in Ubuntu 
+
+Since Ubuntu is a Debian-based Linux distribution, you will using
+that distribution's package management tools to handle Ubuntu server's 
+packages: dget, apt (the Advanced Package Tool), and the GUI-based
+Aptitude. 
+
+[Using the Advanced Package Tool to manage packages](#managing_apt)
+[Using Aptitude to manage packages](#using_aptitude)
+[Using dget to manage manage packages](#using_dget)
+[Accessing additional packages in multiple repositories](#extra_repositories)
+
+<A id="managing_apt"></a>
+
+## Managing Ubuntu packages with the Advanced Package Tool (apt) 
 
 The recommended way to install Debian packages ("deb" files) is using the
 Advanced Packaging Tool (APT), which can be used on the command line using the
 `apt` utility.
 
-The commands contained within `apt` provide the means to install new software
+The commands contained within `apt` allows you to install new software
 packages, upgrade existing software packages, update the package list index,
 and even upgrade the entire Ubuntu system.
 
-## Update the package index
+### Updating the Ubuntu package index with apt
  
 The APT package index is a database of available packages from the
 repositories defined in the `/etc/apt/sources.list` file and in the
@@ -21,7 +35,7 @@ up-to-date version of the package you're interested in, type the following:
 sudo apt update
 ```
 
-## Install a package
+### Installing a package with apt
 
 As an example, to install the `nmap` network scanner, run the following command:
 
@@ -34,7 +48,7 @@ You can install or remove multiple packages at once by separating them with
 spaces.
 ```
 
-## Remove a package
+### Removing a package with apt
 
 To remove the package installed in the previous example, run the following:
 
@@ -53,8 +67,7 @@ be used in scripts (perhaps with the `--quiet` flag). For basic commands the
 syntax of the two tools is identical.
 ```
 
-
-### Upgrading packages 
+### Upgrading packages with apt
 
 Installed packages on your computer may periodically have upgrades available from the package repositories (e.g., security updates). To upgrade your system, first update your package index and then perform the upgrade -- as follows:
     
@@ -65,7 +78,25 @@ sudo apt upgrade
     
 For details on how to upgrade to a new Ubuntu release, see our {ref}`guide on upgrading releases <upgrade-your-release>`. For further information about using APT, read the comprehensive [APT User's Guide](https://www.debian.org/doc/user-manuals#apt-guide), or type `apt help`.
 
-## Aptitude
+## APT configuration
+
+Configuration of the APT system repositories is stored in the `/etc/apt/sources.list` file and the `/etc/apt/sources.list.d` directory. An example of this file is referenced here, along with information on adding or removing repository references from the file.
+
+You can edit the file to enable and disable repositories. For example, to disable the requirement to insert the Ubuntu CD-ROM whenever package operations occur, simply comment out the appropriate line for the CD-ROM, which appears at the top of the file:
+
+```text
+# no more prompting for CD-ROM please
+# deb cdrom:[DISTRO-APT-CD-NAME - Release i386 (20111013.1)]/ DISTRO-SHORT-CODENAME main restricted
+```
+
+[Using the Advanced Package Tool to manage packages](#managing_apt)
+[Using Aptitude to manage packages](#using_aptitude)
+[Using dget to manage manage packages](#using_dget)
+[Accessing additional packages in multiple repositories](#extra_repositories)
+
+<a id="using_aptitude"></a>
+
+## Using Aptitude to manage Ubuntu packages
 
 Launching Aptitude with no command-line options will give you a menu-driven, text-based frontend to the APT system. Many of the common package management functions, such as installation, removal, and upgrade, can be performed in Aptitude with single-key commands, which are typically lowercase letters.
 
@@ -79,23 +110,23 @@ When Aptitude starts, you will see a menu bar at the top of the screen and two p
 
 Using Aptitude for package management is relatively straightforward thanks to its user interface. The following are examples of common package management functions as performed in Aptitude:
 
-### Installing packages
+### Installing packages with Aptitude
 
 To install a package, locate it in the "Not Installed Packages" category by using the keyboard arrow keys and the <kbd>Enter</kbd> key.
 
 Highlight the desired package, then press the <kbd>+</kbd> key. The package entry should turn **green**, which indicates it has been marked for installation. Now press <kbd>g</kbd> to be presented with a summary of package actions. Press <kbd>g</kbd> again, and the package will be downloaded and installed. When finished, press <kbd>Enter</kbd> to return to the menu.
 
-### Remove Packages
+### Removing packages with Aptitude
 
 To remove a package, locate it in the "Installed Packages" category by using the keyboard arrow keys and the <kbd>Enter</kbd> key.
 
 Highlight the package you want to remove, then press the <kbd>-</kbd> key. The package entry should turn **pink**, indicating it has been marked for removal. Now press <kbd>g</kbd> to be presented with a summary of package actions. Press <kbd>g</kbd> again, and the package will be removed. When finished, press <kbd>Enter</kbd> to return to the menu.
 
-### Updating the package index 
+### Updating the package index with Aptitude
 
 To update the package index, press the <kbd>u</kbd> key.
 
-### Upgrade packages
+### Upgrading packages with Aptitude 
 
 To upgrade packages, first update the package index as detailed above, and then press the <kbd>U</kbd> key to mark all packages with available updates. Now press <kbd>g</kbd>, which will present you with a summary of package actions. Press <kbd>g</kbd> again to begin the download and installation. When finished, press <kbd>Enter</kbd> to return to the menu.
 
@@ -119,7 +150,7 @@ The first column of information displayed in the package list (in the top pane) 
 
 To exit Aptitude, simply press the <kbd>q</kbd> key and confirm you want to exit. Many other functions are available from the Aptitude menu by pressing the <kbd>F10</kbd> key.
 
-### Command-line Aptitude
+### Using the command-line with Aptitude 
 
 You can also use Aptitude as a command-line tool, similar to `apt`. To install the `nmap` package with all necessary dependencies (as in the `apt` example), you would use the following command:
 
@@ -135,13 +166,20 @@ sudo aptitude remove nmap
 
 Consult the [Aptitude manpages](https://manpages.ubuntu.com/manpages/man8/aptitude-curses.8.html) for full details of Aptitude's command-line options.
 
-## dpkg
+[Using the Advanced Package Tool to manage packages](#managing_apt)
+[Using Aptitude to manage packages](#using_aptitude)
+[Using dget to manage manage packages](#using_dget)
+[Accessing additional packages in multiple repositories](#extra_repositories)
+
+<a id="using_dget"></a>
+
+## Managing packages with dget (locally installed packages)
 
 `dpkg` is a package manager for Debian-based systems. It can install, remove, and build packages, but unlike other package management systems, it cannot automatically download and install packages -- or their dependencies. 
 
 APT and Aptitude are newer, and layer additional features on top of `dpkg`. This section covers using `dpkg` to manage locally installed packages.
 
-### List packages
+### List packages in dpkg
 
 To list *all* packages in the system’s package database (both installed and uninstalled) run the following command from a terminal prompt:
 
@@ -157,7 +195,7 @@ dpkg -l | grep apache2
     
 Replace `apache2` with any package name, part of a package name, or a regular expression.
 
-### List files
+### List files inside a package with dpkg
 
 To list the files installed by a package, in this case the `ufw` package, enter:
    
@@ -177,7 +215,7 @@ The output shows that the `/etc/host.conf` belongs to the base-files package.
 > **Note**:
 > Many files are automatically generated during the package install process, and even though they are on the filesystem, `dpkg -S` may not know which package they belong to.
 
-### Installing a deb file
+### Installing a deb file with dpkg
 
 You can install a local `.deb` file by entering:
 
@@ -187,7 +225,7 @@ sudo dpkg -i zip_3.0-4_amd64.deb
 
 Change `zip_3.0-4_amd64.deb` to the actual file name of the local `.deb` file you wish to install.
 
-### Uninstalling packages
+### Uninstalling packages with dpkg
 
 You can uninstall a package by running:
 
@@ -200,16 +238,12 @@ sudo dpkg -r zip
 
 For more `dpkg` options see the [`dpkg` manpage](https://manpages.ubuntu.com/manpages/en/man1/dpkg.1.html): `man dpkg`.
 
-## APT configuration
+[Using the Advanced Package Tool to manage packages](#managing_apt)
+[Using Aptitude to manage packages](#using_aptitude)
+[Using dget to manage manage packages](#using_dget)
+[Accessing additional packages in multiple repositories](#extra_repositories)
 
-Configuration of the APT system repositories is stored in the `/etc/apt/sources.list` file and the `/etc/apt/sources.list.d` directory. An example of this file is referenced here, along with information on adding or removing repository references from the file.
-
-You can edit the file to enable and disable repositories. For example, to disable the requirement to insert the Ubuntu CD-ROM whenever package operations occur, simply comment out the appropriate line for the CD-ROM, which appears at the top of the file:
-
-```text
-# no more prompting for CD-ROM please
-# deb cdrom:[DISTRO-APT-CD-NAME - Release i386 (20111013.1)]/ DISTRO-SHORT-CODENAME main restricted
-```
+<A id="extra_repositories"></a>
 
 ### Extra repositories
 
@@ -306,31 +340,6 @@ The local download archive is cleaned every week. On servers upgraded to newer v
 > You can read more about `apt` *Periodic* configuration options in the `apt.conf(5)` manpage and in the `/usr/lib/apt/apt.systemd.daily` script header.
 
 The results of `unattended-upgrades` will be logged to `/var/log/unattended-upgrades`.
-
-### Notifications
-
-Configuring `Unattended-Upgrade::Mail` in `/etc/apt/apt.conf.d/50unattended-upgrades` will enable `unattended-upgrades` to email an administrator detailing any packages that need upgrading or have problems.
-
-Another useful package is `apticron`. `apticron` will configure a cron job to email an administrator information about any packages on the system that have updates available, as well as a summary of changes in each package.
-
-To install the `apticron` package, enter the following command in a terminal:
-
-```bash
-sudo apt install apticron
-```
-
-Once the package is installed, edit `/etc/apticron/apticron.conf`, to set the email address and other options:
-
-```text
-EMAIL="root@example.com"
-```
-
-## logging
-
-Actions of the `apt` command, such as installation and removal of packages,
-are logged in the `/var/log/dpkg.log` log file.
-
-
 
 ## Further reading
 
