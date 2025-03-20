@@ -2,7 +2,7 @@
 # Installing and managing packages in Ubuntu 
 
 Since Ubuntu is a Debian-based Linux distribution, you will using
-that distribution's package management tools to handle Ubuntu server's 
+that distribution's package management tools to handle Ubuntu server
 packages: dget, apt (the Advanced Package Tool), and the GUI-based
 Aptitude. 
 
